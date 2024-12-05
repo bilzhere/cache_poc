@@ -1,0 +1,483 @@
+{
+  "sessionId": "5c58045215140da8e1fc4a98805cafcb",
+  "alias": "load_test_4:00:00:00:00:00:04",
+  "sessionName": "load_test_4:00:00:00:00:00:04",
+  "username": "load_test_4:00:00:00:00:00:04",
+  "partnerId": "ImogenStudio",
+  "uiPartnerId": "Unknown",
+  "cxsimUser": {
+    "id": "1028",
+    "lastModTime": "2024-06-25T12:27:27.000Z",
+    "ownerId": "1027",
+    "pn": "0",
+    "login": "load_test_4:00:00:00:00:00:04",
+    "email": "",
+    "accountStatus": "1",
+    "displayName": "Load Test Camera 4",
+    "partnerId": "ImogenStudio",
+    "location": "8b949371d9b28a5e-LynxIndoor",
+    "homephone": "",
+    "workphone": "00:00:00:00:00:04",
+    "tz": "",
+    "message": "Load Test",
+    "privilege": "NULL",
+    "announceLevel": "0",
+    "userType": "0",
+    "status": "1",
+    "driverName": "",
+    "passwdToken": "NULL",
+    "departmentId": "100",
+    "apps": "NULL",
+    "gender": 1,
+    "inviteeQuota": 6,
+    "mode": 0,
+    "autosign": 0,
+    "tickets": 0,
+    "loginTime": "2024-06-25T12:26:59.000Z",
+    "createTime": "2013-02-27T00:23:27.000Z",
+    "offlineTime": "2024-06-25T12:27:27+00:00",
+    "lastKnownOnlineTime": "2024-06-25T12:26:59+00:00",
+    "offlineNotifySent": false,
+    "bounceCount": 0,
+    "complaintCount": 0,
+    "mapping": {
+      "id": "2023",
+      "lastModTime": "2016-08-12T19:12:40.000Z",
+      "login": "load_test_4:00:00:00:00:00:04",
+      "auth": "DB",
+      "authUserId": "Unknown_load_test_4:00:00:00:00:00:04",
+      "authLogin": "load_test_4:00:00:00:00:00:04",
+      "authEmail": ""
+    },
+    "locale": "NULL",
+    "quotas": []
+  },
+  "cxsimCamera": {
+    "id": "1028",
+    "lastModTime": "2024-05-24T14:59:43.000Z",
+    "alias": "load_test_4:00:00:00:00:00:04",
+    "displayName": "Load Test Camera 4",
+    "partnerId": "ImogenStudio",
+    "model": "LynxIndoor",
+    "hardwarePlatform": "Seedonk:Imogen-I",
+    "currentFirmware": "1.1.1.1",
+    "mac": "00:00:00:00:00:04",
+    "tz": "",
+    "motionEnabled": false,
+    "motionSens": 1
+  },
+  "camModel": "LynxIndoor",
+  "firmwarePlatform": "Seedonk:Imogen-I",
+  "hubNames": {},
+  "hubNameTimestamps": {
+    "IM": 1719318451748,
+    "AUDIO": 1719318451748,
+    "VIDEO": 1719318451748
+  },
+  "hubClient": {
+    "_mConnType": 2,
+    "_mSeriesNo": 0,
+    "_mAppId": 0,
+    "mCounter": 0,
+    "_mIsConnect": false,
+    "lastNewsSent": 0,
+    "_mIsSecured": true,
+    "_mIsFromPage": false,
+    "_mSessionId": "",
+    "_mNeedTranscode": false,
+    "createDttm": 1719245889703,
+    "_mMeetingKeyTableLocker": {
+      "sync": {
+        "state": 0
+      }
+    },
+    "_mMeetingKeyTableLocker2": {},
+    "meetingIdList": []
+  },
+  "agentClient": {
+    "mMeetingId": "111111111111",
+    "mServerID": "**",
+    "mSerialNo": 7,
+    "mIsLocal": true,
+    "mIsDevice": true,
+    "mIsWebcam": false,
+    "mIsFromPage": false,
+    "mIsReady": true,
+    "isReadyForVideo": true,
+    "fwUpgradeLock": {},
+    "loginCountWhileFwUpgradeInProgress": 0,
+    "fwUpgradeInProgress": false,
+    "fwUpgradeStartedDttm": 0,
+    "recentStatusFromDb": 1,
+    "mAccessId": 1,
+    "successfulViewersAndListeners": {},
+    "mRecordIdTable": {},
+    "alias": "load_test_4:00:00:00:00:00:04",
+    "cxsimUserId": "1028",
+    "mDisplayName": "Load Test Camera 4",
+    "mDataSharable": false,
+    "deviceInfo": {
+      "mName": "load_test_4:00:00:00:00:00:04",
+      "mIsDevice": true,
+      "mIsWebcam": false,
+      "isCloudCapable": true,
+      "mDeviceMac": "00:00:00:00:00:04",
+      "mDeviceSize": "640x480:320x240:160x120:1",
+      "mDeviceSizeBackup": "640x480:320x240:160x120:1",
+      "mDeviceFps": "5:30:15",
+      "mDeviceFpsListBackup": "5:30:15",
+      "mDeviceIRE": "1",
+      "mDeviceRTE": "1:4",
+      "mDeviceCAM": "Seedonk:Imogen-I",
+      "mDeviceAUD": "1",
+      "mDeviceAUE": "1",
+      "mDeviceIr": "2",
+      "mDeviceCDLIST": "MJPEG:",
+      "mDeviceCD": "2",
+      "mDeviceLIP": "10.0.255.10",
+      "mDeviceGIP": "3.226.166.207",
+      "mDeviceQty": "1:5:5",
+      "mDeviceQtyListBackup": "1:5:5",
+      "mDeviceRotate": "1",
+      "mDeviceDisplayName": "Load%20Test%20Camera%204",
+      "mdEnabled": "N",
+      "mdSens": "1",
+      "cloudStatus": "1",
+      "cloudTrial": false,
+      "notifyPhone": "N",
+      "mDeviceVer": "1.1.1.1",
+      "mDeviceNVer": "1.",
+      "mDeviceCurVer": "1.1.1.1",
+      "partnerId": "ImogenStudio",
+      "model": "LynxIndoor",
+      "deviceId": "1028",
+      "alreadyLoadedAdditional": false,
+      "micCap": "{\"exists\":true,\"events\":false}",
+      "simpleMotion": "false"
+    }
+  },
+  "connected": false,
+  "connectTime": 1719318451707,
+  "authSuccessTime": 1719318451707,
+  "loginTime": 1719318451707,
+  "loginTraceId": "86aa84fa-513c-44c5-97b4-33e2ee8ee390",
+  "disconnectTime": 1719318451748,
+  "disconnectReason": "idleClient tclose reason=normalLogout.Logout",
+  "savedLogoutToDb": true,
+  "clientSessionIdleCleanupTimeoutMs": 300000,
+  "endpointSessionIdleTimeoutMs": 305000,
+  "lastNewsMs": 1719318427464,
+  "lastRecordStopAudio": 0,
+  "lastRecordStopVideo": 0,
+  "lastRecordMediaCloseSocket": 0,
+  "videoDebugInfo": {},
+  "errorCount": 0,
+  "lastUpdateBattLvMs": 0,
+  "previousLightweightNotificationTime": -1,
+  "previousMotionEventTime": -1,
+  "previousLightweightWebhookTime": -1,
+  "constructionStackTrace": "RunnableWithTracing:20 CallableWithTracing:22 CXSHubProcessIM:1 CXSHubProcessIM:152 LoginForHubV2:74 DeviceLoginServiceImpl:1 LoginServiceBase:219 LoginServiceBase:475 DeviceLoginServiceImpl:1 DeviceLoginServiceImpl:327",
+  "devInfo": {
+    "id": "1028",
+    "alias": "load_test_4:00:00:00:00:00:04",
+    "ownership": {
+      "ownerId": "1027",
+      "ownerAlias": "load_test_4"
+    },
+    "cap": {
+      "cam": {
+        "resList": [
+          {
+            "id": "640x480",
+            "descr": "640x480",
+            "w": 640,
+            "h": 480
+          },
+          {
+            "id": "320x240",
+            "descr": "320x240",
+            "w": 320,
+            "h": 240
+          },
+          {
+            "id": "160x120",
+            "descr": "160x120",
+            "w": 160,
+            "h": 120
+          }
+        ],
+        "codecList": [
+          "MJPEG"
+        ],
+        "rotationList": [
+          1,
+          4
+        ],
+        "fpsMin": 5,
+        "fpsMax": 30,
+        "qualityMin": 1,
+        "qualityMax": 5,
+        "motion": true,
+        "ir": true,
+        "ptzType": 0,
+        "motionSensMin": 1,
+        "motionSensMax": 5,
+        "detectionZones": false,
+        "motionService": {
+          "eventTypeList": [
+            "MOTION_MP4"
+          ],
+          "analyzerList": [],
+          "notification": {
+            "push": true,
+            "filterList": [
+              "basicMotion"
+            ]
+          },
+          "storage": {
+            "days": 7,
+            "invoiceType": "FreeService",
+            "encryption": false
+          }
+        },
+        "simpleMotion": false
+      },
+      "mic": {
+        "exists": true,
+        "events": false
+      }
+    },
+    "status": {
+      "online": false,
+      "geoLocation": {
+        "latitude": 39.0437,
+        "longitude": -77.4742,
+        "isEu": false,
+        "isBipaRestricted": false,
+        "regionCode": "VA",
+        "countryCode": "US",
+        "source": "networkIp"
+      }
+    },
+    "settings": {
+      "displayName": "Load Test Camera 4",
+      "cam": {
+        "res": "320x240",
+        "fps": 15,
+        "quality": 5,
+        "codec": "MJPEG",
+        "rotation": 1,
+        "ir": 2,
+        "motionEnabled": false,
+        "motionSens": 1,
+        "motionService": {
+          "notification": {
+            "push": false
+          }
+        }
+      },
+      "mic": {
+        "enabled": true
+      }
+    },
+    "featureStatus": {
+      "cam": {
+        "vision": {
+          "faceRecognition": [
+            "noSub"
+          ],
+          "peopleDetection": [
+            "noSub"
+          ]
+        },
+        "detectionZones": [
+          "noSub"
+        ],
+        "storage": [
+          "active",
+          "7day"
+        ]
+      },
+      "autoSecure": [
+        "notCompatible"
+      ]
+    },
+    "hw": {
+      "platform": "Seedonk:Imogen-I",
+      "partnerId": "ImogenStudio",
+      "model": "LynxIndoor",
+      "firmwareVer": "1.1.1.1",
+      "netcaptureVer": "1."
+    },
+    "net": {
+      "eth": {
+        "mac": "00:00:00:00:00:04",
+        "lip": "10.0.255.10",
+        "gip": "3.226.166.207",
+        "geoLocation": {
+          "latitude": 39.0437,
+          "longitude": -77.4742,
+          "isEu": false,
+          "isBipaRestricted": false,
+          "regionCode": "VA",
+          "countryCode": "US"
+        }
+      }
+    }
+  },
+  "userInfo": {
+    "userType": "REGULAR",
+    "username": "load_test_4:00:00:00:00:00:04",
+    "alias": "load_test_4:00:00:00:00:00:04",
+    "email": "",
+    "partnerId": "ImogenStudio",
+    "displayName": "Load Test Camera 4",
+    "locale": "NULL",
+    "id": "1028",
+    "sessionId": "b458afbd2c2e0949768033e7e78dacd8",
+    "isDevice": false,
+    "cxsimUser": {
+      "id": "1028",
+      "lastModTime": "2024-06-25T12:27:27.000Z",
+      "ownerId": "1027",
+      "pn": "0",
+      "login": "load_test_4:00:00:00:00:00:04",
+      "email": "",
+      "accountStatus": "1",
+      "displayName": "Load Test Camera 4",
+      "partnerId": "ImogenStudio",
+      "location": "8b949371d9b28a5e-LynxIndoor",
+      "homephone": "",
+      "workphone": "00:00:00:00:00:04",
+      "tz": "",
+      "message": "Load Test",
+      "privilege": "NULL",
+      "announceLevel": "0",
+      "userType": "0",
+      "status": "1",
+      "driverName": "",
+      "passwdToken": "NULL",
+      "departmentId": "100",
+      "apps": "NULL",
+      "gender": 1,
+      "inviteeQuota": 6,
+      "mode": 0,
+      "autosign": 0,
+      "tickets": 0,
+      "loginTime": "2024-06-25T12:26:59.000Z",
+      "createTime": "2013-02-27T00:23:27.000Z",
+      "offlineTime": "2024-06-25T12:27:27+00:00",
+      "lastKnownOnlineTime": "2024-06-25T12:26:59+00:00",
+      "offlineNotifySent": false,
+      "bounceCount": 0,
+      "complaintCount": 0,
+      "mapping": {
+        "id": "2023",
+        "lastModTime": "2016-08-12T19:12:40.000Z",
+        "login": "load_test_4:00:00:00:00:00:04",
+        "auth": "DB",
+        "authUserId": "Unknown_load_test_4:00:00:00:00:00:04",
+        "authLogin": "load_test_4:00:00:00:00:00:04",
+        "authEmail": ""
+      },
+      "locale": "NULL",
+      "quotas": []
+    },
+    "cxsimUserLoaded": false
+  },
+  "userAndDeviceInfo": {
+    "deviceObj": {
+      "ownership": {
+        "ownerAlias": "load_test_4"
+      },
+      "cap": {
+        "cam": {
+          "resList": [
+            {
+              "id": "640x480",
+              "descr": "640x480",
+              "w": 640,
+              "h": 480
+            },
+            {
+              "id": "320x240",
+              "descr": "320x240",
+              "w": 320,
+              "h": 240
+            },
+            {
+              "id": "160x120",
+              "descr": "160x120",
+              "w": 160,
+              "h": 120
+            }
+          ],
+          "codecList": [
+            "MJPEG"
+          ],
+          "rotationList": [
+            1,
+            4
+          ],
+          "fpsMin": 5,
+          "fpsMax": 30,
+          "qualityMin": 1,
+          "qualityMax": 5,
+          "ir": true,
+          "ptzType": 0
+        },
+        "mic": {
+          "exists": true,
+          "events": false
+        }
+      },
+      "status": {},
+      "settings": {
+        "cam": {
+          "res": "320x240",
+          "fps": 15,
+          "quality": 5,
+          "codec": "MJPEG",
+          "rotation": 1,
+          "ir": 2
+        },
+        "mic": {
+          "enabled": true
+        }
+      },
+      "featureStatus": {},
+      "hw": {
+        "platform": "Seedonk:Imogen-I",
+        "firmwareVer": "1.1.1.1",
+        "netcaptureVer": "1."
+      },
+      "net": {
+        "eth": {
+          "mac": "00:00:00:00:00:04",
+          "lip": "10.0.255.10"
+        }
+      }
+    },
+    "reqGip": "3.226.166.207",
+    "isFromPage": false,
+    "device": true,
+    "syntheticClient": false
+  },
+  "attributes": {
+    "cachedLoginCredential": {
+      "id": "67",
+      "lastModTime": "2019-10-29T23:30:24.000Z",
+      "camId": "1028",
+      "alias": "load_test_4:00:00:00:00:00:04",
+      "pwdHashType": "Unsalted",
+      "pwdHash": "{SHA}MWx2gOQxVRsJkoLLKdJbtayE7eg="
+    }
+  },
+  "lastSuccessfulSscpViewType": {},
+  "lastViewModeRequestTimeMsLock": {},
+  "lastViewModeRequestTimeMs": {},
+  "lastUpdatedOnlineTimeInDb": 1719273687491,
+  "lastReconciledTime": 1719310771692,
+  "sentFirstWakeupTime": 0,
+  "debugLogEnabled": false
+}
