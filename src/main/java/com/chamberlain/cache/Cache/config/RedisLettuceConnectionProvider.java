@@ -11,12 +11,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.chamberlain.cache.Cache.config.CacheConstants.REDIS_HOST;
+import static com.chamberlain.cache.Cache.config.CacheConstants.REDIS_PORTS;
+
 @Component
-public class RedisConnectionProvider {
+public class RedisLettuceConnectionProvider {
     private RedisAdvancedClusterCommands<String, String> redisAdvancedClusterCommands;
     private StatefulRedisClusterConnection<String, String> connection;
-    private static final String REDIS_HOST = "172.22.204.10";
-    private static final List<String> REDIS_PORTS = Arrays.asList("20001", "20002", "20003", "20004", "20005", "20006");
     public StatefulRedisClusterPubSubConnection<String, String> getRedisClusterPubSubConnection() {
         return getRedisClusterClient(getRedisURI()).connectPubSub();
     }
@@ -26,7 +27,7 @@ public class RedisConnectionProvider {
     public RedisAdvancedClusterCommands<String, String> getRedisAdvancedClusterCommands() {
         if (redisAdvancedClusterCommands == null) {
             redisAdvancedClusterCommands = getRedisAdvancedClusterCommands(getConnection());
-            //redisAdvancedClusterCommands.configGet("notify-keyspace-events", "KExn");
+            //redisAdvancedClusterCommands.configGet("notify-keyspace-events", "KA");
         }
         return redisAdvancedClusterCommands;
     }

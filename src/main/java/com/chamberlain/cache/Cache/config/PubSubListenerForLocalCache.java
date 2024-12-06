@@ -19,13 +19,13 @@ public class PubSubListenerForLocalCache {
     private static final String EXPIRED_CHANNEL_NAME = "__keyevent@0__:expired";
     private static final String SET_CHANNEL_NAME = "__keyevent@0__:set";
     private final LocalCache<JsonNode> localCache;
-    private final RedisConnectionProvider redisConnectionProvider;
+    private final RedisLettuceConnectionProvider redisLettuceConnectionProvider;
     @PostConstruct
     public void init() {
         log.info("Initializing PubSubListenerForLocalCache listener");
-        redisConnectionProvider.getRedisURI().forEach(redisURI -> {
+        redisLettuceConnectionProvider.getRedisURI().forEach(redisURI -> {
             log.info("Redis URI: {}", redisURI);
-            StatefulRedisClusterPubSubConnection<String, String> connection = redisConnectionProvider.getRedisClusterPubSubConnection(redisURI);
+            StatefulRedisClusterPubSubConnection<String, String> connection = redisLettuceConnectionProvider.getRedisClusterPubSubConnection(redisURI);
             RedisClusterPubSubCommands<String, String> pubSubCommands= connection.sync();
             connection.addListener(new RedisClusterPubSubListener<>() {
                 @Override

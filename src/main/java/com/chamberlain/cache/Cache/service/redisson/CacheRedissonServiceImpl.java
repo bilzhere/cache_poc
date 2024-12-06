@@ -1,44 +1,38 @@
-package com.chamberlain.cache.Cache.service.lettuce;
+package com.chamberlain.cache.Cache.service.redisson;
 
-import com.chamberlain.cache.Cache.config.RedisLettuceConnectionProvider;
+import com.chamberlain.cache.Cache.config.RedisRedissonConnectionProvider;
 import com.chamberlain.cache.Cache.model.CacheResponse;
 import com.chamberlain.cache.Cache.service.CacheService;
-import com.chamberlain.cache.Cache.service.local.LocalCache;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RClusteredLocalCachedMap;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.UUID;
 
-@Service("CacheLettuceServiceImpl")
+@Service("CacheRedissonServiceImpl")
 @Slf4j
 @RequiredArgsConstructor
-public class CacheLettuceServiceImpl implements CacheService {
+public class CacheRedissonServiceImpl implements CacheService {
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private final RedisLettuceConnectionProvider redisLettuceConnectionProvider;
-    private final LocalCache<JsonNode> localCache;
     @Override
     public CacheResponse putCache(Integer count, Boolean fullFlush, Long expire) {
         File jsonFile = new File("src/main/resources/static/sample-client.json").getAbsoluteFile();
         JsonNode sessionObject = null;
         try {
             if (fullFlush)
-                redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().flushdb();
+                RedisRedissonConnectionProvider.getRedissonClient().getKeys().flushdb();
             sessionObject = objectMapper.readTree(jsonFile);
             String session = objectMapper.writeValueAsString(sessionObject);
+            RClusteredLocalCachedMap<String, String> localCache = RedisRedissonConnectionProvider.getLocalCache();
             long begin = System.nanoTime();
             for(int i = 0; i < count; i++) {
                 String key = UUID.randomUUID().toString();
-                if (expire.compareTo(1L)>0){
-                    redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().setex(key, expire, session);
-                }else {
-                    redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().set(key, session);
-                }
-                localCache.put(key, sessionObject);
+                localCache.putAsync(key, session);
             }
             long end = System.nanoTime();
             return CacheResponse.builder()
@@ -61,35 +55,23 @@ public class CacheLettuceServiceImpl implements CacheService {
 
     @Override
     public CacheResponse getCache(String key, Boolean invalidate) {
-        String notifySetting = redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().configGet("notify-keyspace-events").get("notify-keyspace-events");
-        log.info("notifySetting: {}", notifySetting);
+        RClusteredLocalCachedMap<String, String> localCache = RedisRedissonConnectionProvider.getLocalCache();
+        boolean isExists = localCache.getCachedMap().containsKey(key);
         long begin = System.nanoTime();
-        JsonNode node = localCache.get(key);
-        if (node != null) {
-            long end = System.nanoTime();
-            if (invalidate)
-                localCache.invalidate(key);
-            return CacheResponse.builder()
-                    .message("Cache entry retrieved successfully from local cache")
-                    .noOfEntries("1")
-                    .timeTake(end - begin + " ns")
-                    .status("Success")
-                    .data(node)
-                    .build();
-        }
-        String value = redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().get(key);
+        String node = localCache.get(key);
         long end = System.nanoTime();
-        // put the value in local cache
-        localCache.put(key, objectMapper.valueToTree(value));
+
+        localCache.cachedKeySet().forEach(System.out::println);
+        log.info("Cache entry retrieved successfully from "+(isExists?"local":"remote")+" cache");
         if (invalidate)
-            redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().del(key);
+            localCache.remove(key);
         try {
             return CacheResponse.builder()
-                    .message("Cache entry retrieved successfully from remote cache")
+                    .message("Cache entry retrieved successfully from "+(isExists?"local":"remote")+" cache")
                     .noOfEntries("1")
                     .timeTake(end - begin + " ns")
                     .status("Success")
-                    .data(objectMapper.readTree(value))
+                    .data(objectMapper.readTree(node))
                     .build();
         } catch (JsonProcessingException e) {
             log.error("Error while processing json", e);

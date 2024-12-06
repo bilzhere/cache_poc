@@ -15,12 +15,16 @@ java {
 
 repositories {
 	mavenCentral()
+	maven {
+			url = uri("https://redisson.pro/repo/")
+		}
 }
 
 dependencies {
+	implementation("pro.redisson:redisson:3.39.0")
 	compileOnly("org.projectlombok:lombok")
 	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
-	implementation("org.redisson:redisson:3.39.0")
+	//implementation("org.redisson:redisson:3.39.0")
 	implementation("com.fasterxml.jackson.core:jackson-core:2.18.2")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
 	implementation("io.lettuce:lettuce-core:6.5.1.RELEASE")
