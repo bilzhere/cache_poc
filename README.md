@@ -21,7 +21,7 @@ Here is a sample shell script to create a Valkey cluster with three primary node
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-# Settings
+//Settings
 BIN_PATH="$SCRIPT_DIR/../../src/"
 CLUSTER_HOST=127.0.0.1
 PORT=30000
@@ -31,8 +31,10 @@ REPLICAS=1
 PROTECTED_MODE=yes
 ADDITIONAL_OPTIONS=""
 
-# You may want to put the above config parameters into config.sh in order to
-# override the defaults without modifying this script.
+/**
+You may want to put the above config parameters into config.sh in order to
+override the defaults without modifying this script. 
+**/
 
 if [ -a config.sh ]
 then
