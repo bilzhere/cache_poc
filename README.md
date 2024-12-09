@@ -41,7 +41,7 @@ then
     source "config.sh"
 fi
 
-# Computed vars
+// Computed vars
 ENDPORT=$((PORT+NODES))
 
 if [ "$1" == "start" ]
