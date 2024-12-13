@@ -1,17 +1,25 @@
 package com.chamberlain.cache.Cache.service.lettuce;
 
 import com.chamberlain.cache.Cache.config.RedisLettuceConnectionProvider;
+import com.chamberlain.cache.Cache.config.RedisRedissonConnectionProvider;
 import com.chamberlain.cache.Cache.model.CacheResponse;
 import com.chamberlain.cache.Cache.service.CacheService;
 import com.chamberlain.cache.Cache.service.local.LocalCache;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.lettuce.core.api.sync.RedisCommands;
+import io.lettuce.core.codec.RedisCodec;
+import io.lettuce.core.codec.StringCodec;
+import io.lettuce.core.output.StatusOutput;
+import io.lettuce.core.protocol.CommandArgs;
+import io.lettuce.core.protocol.CommandType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 @Service("CacheLettuceServiceImpl")
@@ -25,9 +33,11 @@ public class CacheLettuceServiceImpl implements CacheService {
     public CacheResponse putCache(Integer count, Boolean fullFlush, Long expire) {
         File jsonFile = new File("src/main/resources/static/sample-client.json").getAbsoluteFile();
         JsonNode sessionObject = null;
+
         try {
             if (fullFlush)
                 redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().flushdb();
+            putCustomCommand();
             sessionObject = objectMapper.readTree(jsonFile);
             String session = objectMapper.writeValueAsString(sessionObject);
             long begin = System.nanoTime();
@@ -63,6 +73,7 @@ public class CacheLettuceServiceImpl implements CacheService {
     public CacheResponse getCache(String key, Boolean invalidate) {
         String notifySetting = redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().configGet("notify-keyspace-events").get("notify-keyspace-events");
         log.info("notifySetting: {}", notifySetting);
+        updateCustomCommand();
         long begin = System.nanoTime();
         JsonNode node = localCache.get(key);
         if (node != null) {
@@ -101,5 +112,20 @@ public class CacheLettuceServiceImpl implements CacheService {
                     .build();
         }
     }
-
+    private void clearCache() {
+        redisLettuceConnectionProvider.getRedisAdvancedClusterCommands().flushdb();
+    }
+    private void putCustomCommand() throws IOException {
+        File jsonFile = new File("src/main/resources/static/sample-client.json").getAbsoluteFile();
+        JsonNode sessionObject = objectMapper.readTree(jsonFile);
+        String session = objectMapper.writeValueAsString(sessionObject);
+        redisLettuceConnectionProvider.getRedisAdvancedClusterCommands()
+                .dispatch(CommandType.JSON_SET, new StatusOutput<>(StringCodec.UTF8),
+                new CommandArgs<>(StringCodec.UTF8).addKey("session").add(".").add(session));
+    }
+    private void updateCustomCommand(){
+        redisLettuceConnectionProvider.getRedisAdvancedClusterCommands()
+                .dispatch(CommandType.JSON_SET, new StatusOutput<>(StringCodec.UTF8),
+                new CommandArgs<>(StringCodec.UTF8).addKey("session").add("$.alias").add("binayak_das"));
+    }
 }

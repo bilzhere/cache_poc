@@ -1,10 +1,10 @@
 package com.chamberlain.cache.Cache.controller;
 
 import com.chamberlain.cache.Cache.model.CacheResponse;
+import com.chamberlain.cache.Cache.model.CacheType;
 import com.chamberlain.cache.Cache.service.CacheService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,22 +13,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
+@RequiredArgsConstructor
 public class CacheController {
+    private final BeanFactory beanFactory;
 
-    private final CacheService cacheService;
-
-    @Autowired
-    public CacheController(@Qualifier("CacheRedissonServiceImpl")CacheService cacheService) {
-        this.cacheService = cacheService;
+    @PostMapping("/v1/cache/{entries}/flush/{flush}/expire/{expire}/create/with/{method}")
+    public CacheResponse createCacheEntries(@PathVariable("entries") Integer count,
+                                            @PathVariable("flush")  Boolean fullFlush,
+                                            @PathVariable("expire") Long expire,
+                                            @PathVariable("method") CacheType method){
+        return beanFactory.getBean(
+                method.equals(CacheType.LETTUCE)?"CacheLettuceServiceImpl":"CacheRedissonServiceImpl",
+                CacheService.class).putCache(count, fullFlush, expire);
     }
 
-    @PostMapping("/v1/cache/{entries}/flush/{flush}/expire/{expire}/create")
-    public CacheResponse createCacheEntries(@PathVariable("entries") Integer count,@PathVariable("flush")  Boolean fullFlush, Long expire) {
-        return  cacheService.putCache(count, fullFlush, expire);
-    }
-
-    @GetMapping("/v1/cache/{key}/{invalidate}")
-    public CacheResponse getCacheKey( @PathVariable("key") String key, @PathVariable("invalidate") Boolean invalidate) {
-        return cacheService.getCache(key, invalidate);
+    @GetMapping("/v1/cache/{key}/{invalidate}/with/{method}")
+    public CacheResponse getCacheKey(
+            @PathVariable("key") String key,
+            @PathVariable("invalidate") Boolean invalidate,
+            @PathVariable("method") CacheType method) {
+        return beanFactory.getBean(method.equals(CacheType.LETTUCE)?"CacheLettuceServiceImpl":"CacheRedissonServiceImpl",
+                CacheService.class).getCache(key, invalidate);
     }
 }

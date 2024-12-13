@@ -1,10 +1,12 @@
 package com.chamberlain.cache.Cache.config;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.redisson.Redisson;
 import org.redisson.api.ClusteredLocalCachedMapOptions;
 import org.redisson.api.RClusteredLocalCachedMap;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.options.LocalCachedMapOptions;
+import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.springframework.stereotype.Component;
 
@@ -33,8 +35,8 @@ public class RedisRedissonConnectionProvider {
         return redissonClient;
     }
 
-    public static ClusteredLocalCachedMapOptions<String, String> getLocalCacheConfiguration() {
-        return ClusteredLocalCachedMapOptions.<String, String>defaults()
+    public static ClusteredLocalCachedMapOptions<String, JsonNode> getLocalCacheConfiguration() {
+        return ClusteredLocalCachedMapOptions.<String, JsonNode>defaults()
                 .syncStrategy(ClusteredLocalCachedMapOptions.SyncStrategy.INVALIDATE)
                 .reconnectionStrategy(ClusteredLocalCachedMapOptions.ReconnectionStrategy.LOAD)
                 .evictionPolicy(ClusteredLocalCachedMapOptions.EvictionPolicy.LFU)
@@ -46,8 +48,8 @@ public class RedisRedissonConnectionProvider {
                 .cacheProvider(REDISSON);
     }
 
-    public static RClusteredLocalCachedMap<String, String> getLocalCache(){
-        return getRedissonClient().getClusteredLocalCachedMap("localCache", getLocalCacheConfiguration());
+    public static RClusteredLocalCachedMap<String, JsonNode> getLocalCache(){
+        return getRedissonClient().getClusteredLocalCachedMap("localCache", new JsonJacksonCodec(), getLocalCacheConfiguration());
     }
 
 }
