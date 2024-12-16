@@ -3,7 +3,13 @@ package com.chamberlain.cache.Cache.service.redisson;
 import com.chamberlain.cache.Cache.config.RedisRedissonConnectionProvider;
 import com.chamberlain.cache.Cache.model.CacheResponse;
 import com.chamberlain.cache.Cache.service.CacheService;
+import org.redisson.api.RBucket;
+import org.redisson.api.RJsonBucket;
 import org.redisson.api.RScript;
+import org.redisson.api.options.PlainOptions;
+import org.redisson.client.codec.StringCodec;
+import org.redisson.codec.JacksonCodec;
+import org.redisson.codec.JsonCodec;
 import org.redisson.codec.JsonJacksonCodec;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,6 +75,7 @@ public class CacheRedissonServiceImpl implements CacheService {
         long end = System.nanoTime();
         localCache.cachedKeySet().forEach(System.out::println);
         log.info("Cache entry retrieved successfully from "+(isExists?"local":"remote")+" cache");
+        log.info("Particular filed fetched from json: {}", fetchParticularField());
         if (invalidate)
             localCache.remove(key);
         return CacheResponse.builder()
@@ -91,16 +98,37 @@ public class CacheRedissonServiceImpl implements CacheService {
         JsonNode sessionObject = objectMapper.readTree(jsonFile);
         String session = objectMapper.writeValueAsString(sessionObject);
 
-        String setScript = "return redis.call('JSON.SET', KEYS[1], ARGV[1], ARGV[2])";
+        /*String setScript = "return redis.call('JSON.SET', KEYS[1], ARGV[1], ARGV[2])";
         RedisRedissonConnectionProvider.getRedissonClient().getScript()
                 .eval(RScript.Mode.READ_WRITE, setScript, RScript.ReturnType.VALUE,
-                        Collections.singletonList("session"), "$", session);
+                        Collections.singletonList("session"), "$", session);*/
+
+
+        //using json bucket
+        RJsonBucket<Object> bucket = RedisRedissonConnectionProvider.getRedissonClient().getJsonBucket("session-json", new JacksonCodec<>(JsonNode.class));
+        bucket.set(sessionObject);
+        /***
+         * The line redisson.getJsonBucket("myJsonKey") initializes an RJsonBucket object, which allows you to interact with JSON data stored in Redis.
+         * However, this line alone does not bring the value from the Redis cluster to local memory.
+         * It simply sets up the reference to the JSON bucket.
+         *
+         * To actually retrieve the value from Redis and bring it into local memory,
+         * you need to call a method like get() on the RJsonBucket object.
+         */
     }
 
     private void updateCustomCommand() {
-        String updateScript = "return redis.call('JSON.SET', KEYS[1], ARGV[1], ARGV[2])";
+        /*String updateScript = "return redis.call('JSON.SET', KEYS[1], ARGV[1], ARGV[2])";
         RedisRedissonConnectionProvider.getRedissonClient().getScript().eval(RScript.Mode.READ_WRITE, updateScript, RScript.ReturnType.VALUE,
-                Collections.singletonList("session"), "$.value", "binayak camera");
+                Collections.singletonList("session"), "$.value", "binayak camera");*/
+
+
+        RJsonBucket<Object> bucket = RedisRedissonConnectionProvider.getRedissonClient().getJsonBucket("session-json", new JacksonCodec<>(JsonNode.class));
+        bucket.set("$.alias", "binayak-camera");
     }
 
+    private String fetchParticularField(){
+        RJsonBucket<Object> bucket = RedisRedissonConnectionProvider.getRedissonClient().getJsonBucket("session-json", new JacksonCodec<>(JsonNode.class));
+        return bucket.get(new StringCodec(), "$.alias");
+    }
 }
