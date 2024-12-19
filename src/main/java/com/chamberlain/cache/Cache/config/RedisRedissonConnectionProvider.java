@@ -5,7 +5,6 @@ import org.redisson.Redisson;
 import org.redisson.api.ClusteredLocalCachedMapOptions;
 import org.redisson.api.RClusteredLocalCachedMap;
 import org.redisson.api.RedissonClient;
-import org.redisson.api.options.LocalCachedMapOptions;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.springframework.stereotype.Component;
